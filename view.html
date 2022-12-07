@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/gumby/2.6.0/js/libs/jquery-1.10.1.min.js"></script>
+  <script src="search.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <!-- <title>IIIT HYDERABAD</title> -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var b=localStorage.getItem("myValue");
+      document.title = 'IIIT-H-'+b;
+    });
+  </script>
+  
+  <!-- Molstar CSS & JS -->
+  <link rel="stylesheet" type="text/css"
+    href="https://www.ebi.ac.uk/pdbe/pdb-component-library/css/pdbe-molstar-3.0.0.css">
+  <script type="text/javascript"
+    src="https://www.ebi.ac.uk/pdbe/pdb-component-library/js/pdbe-molstar-plugin-3.0.0.js"></script>
+  <!-- data js and CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script
+src="https://code.jquery.com/jquery-3.6.0.js"
+integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+  
+  <style>
+    #myViewer {
+        float: initial;
+      top: 170px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      position: absolute;
+    }
+  </style>
+   <style>
+    .header {
+      position: sticky;
+      top: 0;
+
+    }
+
+    body {
+      height: 800px;
+    }
+  </style>
+  <script>
+    function geek() {
+      const link = getitem();
+      document.getElementById("p").innerHTML = link;
+      console.log(link);
+      return link;
+    }
+  </script>
+</head>
+
+<body>
+    <!-- data container -->
+    <!-- <h3><p id="p">Generate Download Link of pdb</p></h3> 
+    <button onclick="geek()"><a id="p">generate link</a></button> -->
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th>pdbid</th>
+        <th>Binding Affinity(kcal/mol)</th>
+        <!-- <th>binding_affinity_sd</th> -->
+        <th>Electrostatic Interaction Energy(kcal/mol)</th>
+        <!-- <th>electrostatic_sd</th> -->
+        <th>Polar Solvation Energy(kcal/mol)</th>
+        <!-- <th>polar_solvation_sd</th> -->
+        <th>Non-Polar Solvation Energy(kcal/mol)</th>
+        <!-- <th>non_polar_solvation_sd</th> -->
+        <th>van der Waals Interaction(kcal/mol)</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <script>
+      //fetch("https://healthcare.iiit.ac.in/d4/data.json")
+      //fetch("https://raw.githubusercontent.com/akashranjanofficial/molstarPdb-Viewer/pdbdata/data.json")
+
+       fetch("https://healthcare.iiit.ac.in/d4/plas20k/data_updated.json").then((data)=>{
+  return data.json();
+}).then((objectData)=>{
+var pdbid=localStorage.getItem("myValue");
+console.log("This is the local pdbid",pdbid);
+var tr;
+for (var i = 0; i < objectData.length; i++) {
+  tr = $('<tr/>');
+  if(objectData[i].pdbid==pdbid){
+  tr.append("<td>" + objectData[i].pdbid + "</td>");
+  tr.append("<td>" + objectData[i].binding_affinity + "</td>");
+  //tr.append("<td>" + objectData[i].binding_affinity_sd + "</td>");
+    
+  tr.append("<td>" + objectData[i].electrostatic + "</td>");
+  //tr.append("<td>" + objectData[i].electrostatic_sd + "</td>");
+  tr.append("<td>" + objectData[i].polar_solvation + "</td>");
+ // tr.append("<td>" + objectData[i].polar_solvation_sd + "</td>");
+  tr.append("<td>" + objectData[i].non_polar_solvation + "</td>");
+ // tr.append("<td>" + objectData[i].non_polar_solvation_sd + "</td>");
+  tr.append("<td>" + objectData[i].vdW + "</td>");
+   $('table').append(tr);
+  }
+}
+});
+       
+       </script>
+    </tbody>
+      <a href="plas20k.html" target="_blank" rel="noopener noreferrer"><h4>click here to search new pdb id</h4></a>
+  <div id="myViewer"></div>
+  <script>
+      function getitem(){
+        var b = localStorage.getItem("myValue");
+        //var link='https://files.rcsb.org/download/'+b+'.pdb';
+        //var link='https://raw.githubusercontent.com/akashranjanofficial/molstarPdb-Viewer/pdbdata/protein-ligand/'+b+'.pdb';
+        //------------------------ Fetching from IIIT SERVER ------------------------------------------------------------
+        var link= 'https://healthcare.iiit.ac.in/d4/plas20k/protein-ligand/'+b+'.pdb';
+        //alert("The Value Received is " + link);
+        var resetValue =0;
+        //localStorage.setItem("myValue", resetValue);
+        return link;
+        }
+     
+      //Create plugin instance
+      var viewerInstance = new PDBeMolstarPlugin();
+      //var str = document.getElementById("outputsearch").value;
+      //console.log(str);
+      //var link= getlink();
+      //console.log(link);
+  
+      //Set options (Checkout available options list in the documentation)
+     // var uurl='https://files.rcsb.org/download/'+str+'.pdb';
+       //console.log(uurl);
+       var uurl=getitem();
+       console.log(uurl);
+     
+      var options = {
+        customData:{ url: uurl, format: 'pdb', binary:false },
+        hideControls:true,
+        expanded:false,
+        hideExpandIcon:false,
+        AnimationEffect:true,
+        domainAnnotation:true,
+        landscape:true,
+        
+        
+
+      }
+      
+      //Get element from HTML/Template to place the viewer 
+      var viewerContainer = document.getElementById('myViewer');
+  
+      //Call render method to display the 3D view
+      viewerInstance.render(viewerContainer, options);
+
+  </script>
+</body>
+
+</html>
